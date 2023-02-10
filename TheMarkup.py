@@ -56,3 +56,18 @@ for filename in os.listdir(workDirectory):
     for tag, tag_info in tag_map.items():
       markup = ET.SubElement(root, "Markup")
       markup.set("ID", str(tag_info
+
+xml = xmlbuilder.create('BAX', { version: '1.0', encoding: 'UTF-8' })
+
+for tag, data in tag_data.items():
+    xml.ele('Markup')
+        .ele('TagName', tag).up()
+        .ele('TagID', data['id']).up()
+        .ele('Color', data['color']).up()
+        .ele('PageNumber', data['page_number']).up()
+        .ele('Coordinates', data['coordinates']).up()
+
+xml_str = xml.end({ pretty: True})
+
+with open("output.bax", "w") as f:
+    f.write(xml_str)
